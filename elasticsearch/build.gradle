@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'pers.lyks'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+
+dependencies {
+
+    compile project(":rest-client")
+
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+
+}
+
+application {
+    mainClassName = 'pers.lyks.kerberos.ElasticApplication'
+
+    applicationDefaultJvmArgs = ["-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"]
+
+}

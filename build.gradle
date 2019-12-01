@@ -1,0 +1,29 @@
+ext {
+    elasticsearchVersion = "7.2.0"
+}
+
+subprojects {
+
+    apply plugin: 'java'
+
+    group 'pers.lyks'
+    version '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.6.RELEASE'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+        compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
+
+    }
+
+}

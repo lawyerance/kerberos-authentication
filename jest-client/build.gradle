@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-client', version: "$elasticsearchVersion"
+    compile group: 'io.searchbox', name: 'jest', version: '6.3.1'
+}

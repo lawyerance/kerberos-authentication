@@ -1,0 +1,41 @@
+{
+  "group": [
+    {
+      "name": "spring.elasticsearch.rest",
+      "type": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties"
+    },
+    {
+      "name": "spring.elasticsearch.rest.kerberos",
+      "type": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.elasticsearch.rest.kerberos.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties",
+      "description": "Whether to enable kerberos authentication, default true"
+    },
+    {
+      "name": "spring.elasticsearch.rest.kerberos.username",
+      "type": "java.lang.String",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties",
+      "description": "The username for kerberos verified, use property 'spring.elasticsearch.username' if not configured."
+    },
+    {
+      "name": "spring.elasticsearch.rest.kerberos.password",
+      "type": "java.lang.String",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties",
+      "description": "The password for kerberos verified, use property 'spring.elasticsearch.password' if not configured."
+    },
+    {
+      "name": "spring.elasticsearch.rest.kerberos.login-module",
+      "type": "java.lang.String",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosProperties",
+      "description": "The specify name of login module for kerberos authentication."
+    }
+  ],
+  "hits": []
+}

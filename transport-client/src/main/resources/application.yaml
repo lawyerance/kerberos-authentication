@@ -1,0 +1,11 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /web
+spring:
+  elasticsearch:
+    rest:
+      uris:
+        - localhost:9207
+      kerberos:
+        username: kerberos
