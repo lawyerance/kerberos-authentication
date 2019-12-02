@@ -1,6 +1,5 @@
 package pers.lyks.kerberos.autoconfigure.elasticsearch;
 
-import org.elasticsearch.Version;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientProperties;
@@ -12,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "spring.elasticsearch.rest")
 public class KerberosRestClientProperties implements InitializingBean {
-    private static final byte ELASTIC_MAJOR_VERSION = 6;
     @Autowired
     private RestClientProperties restClientProperties;
     private boolean compatible;
@@ -22,7 +20,62 @@ public class KerberosRestClientProperties implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         kerberos.resetPassword(restClientProperties.getUsername());
         kerberos.resetPassword(restClientProperties.getPassword());
-        compatible = (Version.CURRENT.major <= ELASTIC_MAJOR_VERSION);
+    }
+
+
+    public static class KerberosProperties {
+        private boolean enabled = true;
+        private String username;
+        private String password;
+        private String loginModule;
+
+        public KerberosProperties(String loginModule) {
+            this.loginModule = loginModule;
+        }
+
+        void resetUsername(String newValue) {
+            if (null == this.username) {
+                this.username = newValue;
+            }
+        }
+
+        void resetPassword(String newValue) {
+            if (null == this.password) {
+                this.password = newValue;
+            }
+        }
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getLoginModule() {
+            return loginModule;
+        }
+
+        public void setLoginModule(String loginModule) {
+            this.loginModule = loginModule;
+        }
     }
 
     public KerberosProperties getKerberos() {
@@ -31,5 +84,9 @@ public class KerberosRestClientProperties implements InitializingBean {
 
     public boolean isCompatible() {
         return compatible;
+    }
+
+    public void setCompatible(boolean compatible) {
+        this.compatible = compatible;
     }
 }

@@ -28,7 +28,7 @@ public class KerberosRestClientAutoConfiguration {
     @EnableConfigurationProperties({KerberosRestClientProperties.class})
     @ConditionalOnProperty(name = "spring.elasticsearch.rest.kerberos.enabled", matchIfMissing = true)
     public static class KerberosAuthenticateRestClientBuilderCustomizer implements RestClientBuilderCustomizer {
-        private final KerberosProperties kerberos;
+        private final KerberosRestClientProperties.KerberosProperties kerberos;
 
         public KerberosAuthenticateRestClientBuilderCustomizer(KerberosRestClientProperties kerberosRestClientProperties) {
             this.kerberos = kerberosRestClientProperties.getKerberos();

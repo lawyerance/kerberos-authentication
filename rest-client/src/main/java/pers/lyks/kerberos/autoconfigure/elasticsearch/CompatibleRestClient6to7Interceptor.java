@@ -33,7 +33,7 @@ public class CompatibleRestClient6to7Interceptor implements HttpRequestIntercept
 
     private CompatibleAllocator distributor(URIBuilder builder, String method, String path) {
         if (HttpGet.METHOD_NAME.equalsIgnoreCase(method)) {
-             if (path.endsWith("/_search")) {
+            if (path.endsWith("/_search")) {
                 return new SearchAllocator(builder);
             }
         } else if (HttpPost.METHOD_NAME.equalsIgnoreCase(method)) {
