@@ -1,5 +1,17 @@
 {
-
+  "group": [
+    {
+      "name": "spring.elasticsearch.rest",
+      "type": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties"
+    },
+    {
+      "name": "spring.elasticsearch.rest.kerberos",
+      "type": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties$KerberosProperties",
+      "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties$KerberosProperties",
+      "sourceMethod": "getKerberos()"
+    }
+  ],
   "properties": [
     {
       "name": "spring.elasticsearch.rest.compatible",
@@ -32,5 +44,5 @@
       "description": "The specify name of login module for kerberos authentication."
     }
   ],
-  "hits": []
+  "hints": []
 }

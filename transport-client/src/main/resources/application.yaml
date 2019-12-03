@@ -8,4 +8,5 @@ spring:
       uris:
         - localhost:9207
       kerberos:
+
         username: kerberos

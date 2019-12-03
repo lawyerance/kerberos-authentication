@@ -17,13 +17,17 @@ dependencies {
 
     compile project(":rest-client")
 
-    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.6.RELEASE"
+
+    compile("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
 
 }
 
 application {
     mainClassName = 'pers.lyks.kerberos.ElasticApplication'
 
-    applicationDefaultJvmArgs = ["-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"]
+    applicationDefaultJvmArgs = [
+            "-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"
+    ]
 
 }
