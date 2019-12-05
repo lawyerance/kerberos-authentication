@@ -6,6 +6,7 @@ group 'pers.lyks'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'application'
+apply plugin: "groovy"
 
 repositories {
     mavenLocal()
@@ -21,13 +22,16 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
 
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.8'
+
 }
 
 application {
     mainClassName = 'pers.lyks.kerberos.ElasticApplication'
 
     applicationDefaultJvmArgs = [
-            "-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"
+            "-Dapp.logs.dir=${projectDir}/logs"
+//            "-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"
     ]
 
 }
