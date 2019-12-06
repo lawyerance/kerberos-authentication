@@ -11,7 +11,12 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.common.bytes.BytesReference;
+import org.elasticsearch.common.xcontent.ToXContent;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentHelper;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.json.JsonXContent;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -32,7 +37,7 @@ import java.util.stream.Stream;
  * @version 1.0 2019-11-22
  */
 @RestController
-@RequestMapping(value = "/rest", produces = "application/json; charset=utf-8")
+@RequestMapping(value = "/rest-high-level", produces = "application/json; charset=utf-8")
 public class RestHighClientController {
     private static final Logger logger = LoggerFactory.getLogger(RestHighClientController.class);
     @Resource
@@ -44,7 +49,10 @@ public class RestHighClientController {
         map.put("code", 200);
         map.put("message", "OK");
         MainResponse info = restHighLevelClient.info(RequestOptions.DEFAULT);
-        map.put("data", info.getClusterName());
+        XContentBuilder xContentBuilder = info.toXContent(JsonXContent.contentBuilder(), new ToXContent.MapParams(new HashMap<>()));
+        BytesReference bytesReference = BytesReference.bytes(xContentBuilder);
+        Map<String, Object> toMap = XContentHelper.convertToMap(xContentBuilder.contentType().xContent(), bytesReference.streamInput(), true);
+        map.put("data", toMap);
         return map;
     }
 

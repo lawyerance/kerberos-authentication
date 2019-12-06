@@ -10,3 +10,4 @@ spring:
       kerberos:
         username: kerberos
         enabled: false
+      compatible: true
