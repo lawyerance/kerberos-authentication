@@ -1,6 +1,9 @@
 rootProject.name = 'kerberos-authentication'
-include 'elasticsearch'
 include 'rest-client'
+include 'rest-client-sample'
+
 include 'jest-client'
+include 'jest-client-sample'
+
 include 'transport-client'
 

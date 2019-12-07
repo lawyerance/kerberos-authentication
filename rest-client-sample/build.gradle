@@ -18,16 +18,12 @@ dependencies {
 
     compile project(":rest-client")
 
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.6.RELEASE"
-
-    compile("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
-
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.8'
 
 }
 
 application {
-    mainClassName = 'pers.lyks.kerberos.ElasticApplication'
+    mainClassName = 'pers.lyks.kerberos.RestClientApplication'
 
     applicationDefaultJvmArgs = [
             "-Dapp.logs.dir=${projectDir}/logs"

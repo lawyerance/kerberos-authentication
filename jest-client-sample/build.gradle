@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group 'pers.lyks'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: "groovy"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+
+dependencies {
+
+    compile project(":jest-client")
+
+
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.8'
+
+}
+
+application {
+    mainClassName = 'pers.lyks.kerberos.JestClientApplication'
+
+    applicationDefaultJvmArgs = [
+            "-Dapp.logs.dir=${projectDir}/logs"
+//            "-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"
+    ]
+
+}

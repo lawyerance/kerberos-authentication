@@ -9,9 +9,9 @@ import pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientAutoConf
  * @version 1.0 2019-11-22
  */
 @SpringBootApplication(exclude = {KerberosRestClientAutoConfiguration.class})
-public class ElasticApplication {
+public class RestClientApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ElasticApplication.class, args);
+        SpringApplication.run(RestClientApplication.class, args);
     }
 }
