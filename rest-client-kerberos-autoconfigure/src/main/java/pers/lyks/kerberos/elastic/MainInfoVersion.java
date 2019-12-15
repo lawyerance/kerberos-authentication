@@ -6,6 +6,8 @@ import org.elasticsearch.common.xcontent.DeprecationHandler;
 import org.elasticsearch.common.xcontent.NamedXContentRegistry;
 import org.elasticsearch.common.xcontent.XContentParser;
 import org.elasticsearch.common.xcontent.json.JsonXContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +17,11 @@ import java.io.InputStream;
  * @version 1.0 2019-12-15
  */
 public final class MainInfoVersion {
+    public static final Logger logger = LoggerFactory.getLogger(MainInfoVersion.class);
+
     public static boolean compatible(MainResponse main) throws IOException {
         Version serverVersion = main.getVersion();
+        logger.info("Elasticsearch use client version {} connect sever version {}. ", serverVersion, Version.CURRENT);
         return serverVersion.major > Version.CURRENT.major;
     }
 
