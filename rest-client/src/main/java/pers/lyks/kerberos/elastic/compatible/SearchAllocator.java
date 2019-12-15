@@ -1,6 +1,7 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.kerberos.elastic.compatible;
 
 import org.apache.http.client.utils.URIBuilder;
+import pers.lyks.kerberos.elastic.PathLayering;
 
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
-public class SearchAllocator extends ResetRequestURIAllocator {
+public class SearchAllocator extends ResetURIAllocator {
     private PathLayering layering;
 
     public SearchAllocator(URIBuilder build) {
@@ -26,6 +27,7 @@ public class SearchAllocator extends ResetRequestURIAllocator {
 
     @Override
     protected void customize(URIBuilder builder) {
+        super.customize(builder);
         if (layering.getSize() >= 3) {
             layering.delete(1);
             builder.setPath(layering.toString());

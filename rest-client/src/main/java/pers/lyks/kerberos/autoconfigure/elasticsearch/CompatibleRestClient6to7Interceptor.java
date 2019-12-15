@@ -10,6 +10,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.protocol.HttpContext;
 import pers.lyks.kerberos.elastic.*;
+import pers.lyks.kerberos.elastic.compatible.CreateIndexIncludeTypeAllocator;
+import pers.lyks.kerberos.elastic.compatible.PutDataAllocator;
+import pers.lyks.kerberos.elastic.compatible.SearchAllocator;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -25,13 +28,14 @@ public class CompatibleRestClient6to7Interceptor implements HttpRequestIntercept
         RequestLine requestLine = httpRequest.getRequestLine();
         try {
             URIBuilder builder = new URIBuilder(requestLine.getUri());
-            distributor(builder, requestLine.getMethod(), builder.getPath()).compatible(httpRequest, httpContext);
+            distributor(builder, requestLine.getMethod()).compatible(httpRequest, httpContext);
         } catch (URISyntaxException e) {
             throw new HttpException("Parse request uri error with request line: " + requestLine, e);
         }
     }
 
-    private CompatibleAllocator distributor(URIBuilder builder, String method, String path) {
+    private CompatibleAllocator distributor(URIBuilder builder, String method) {
+        String path = builder.getPath();
         if (HttpGet.METHOD_NAME.equalsIgnoreCase(method)) {
             if (path.endsWith("/_search")) {
                 return new SearchAllocator(builder);

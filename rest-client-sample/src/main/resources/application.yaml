@@ -6,8 +6,7 @@ spring:
   elasticsearch:
     rest:
       uris:
-        - localhost:9207
+        - 192.168.0.107:9207
       kerberos:
         username: kerberos
         enabled: false
-      compatible: true

@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.elasticsearch.jest.HttpClientConfi
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.security.PrivilegedActionException;
+
 /**
  * @author lawyerance
  * @version 1.0 2019-12-01
@@ -32,6 +34,12 @@ public class KerberosJestClientAutoConfiguration {
         @Override
         public void customize(HttpClientConfig.Builder builder) {
             logger.info("Using custom customizer to authenticate rest client of kerberos.");
+            HttpClientConfigHandler clientConfigHandler = new HttpClientConfigHandler(kerberos.getUsername(), kerberos.getPassword(), kerberos.getLoginModule());
+            try {
+                builder.credentialsProvider(clientConfigHandler.credentialsProvider());
+            } catch (PrivilegedActionException e) {
+                logger.error("create credentials provider error", e);
+            }
         }
     }
 }

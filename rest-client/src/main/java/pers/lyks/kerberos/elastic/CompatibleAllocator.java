@@ -5,6 +5,7 @@ import org.apache.http.protocol.HttpContext;
 
 /**
  * Use elasticsearch rest client 6 compatible elasticsearch server 7 compatible implementation interface
+ * <p>All compatible methods are implemented by modifying the uri.</p>
  *
  * @author lawyerance
  * @version 1.0 2019-11-28

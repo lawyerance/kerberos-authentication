@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.kerberos.elastic.compatible;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestWrapper;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HttpContext;
+import pers.lyks.kerberos.elastic.CompatibleAllocator;
 
 import java.io.IOException;
 import java.io.InputStream;

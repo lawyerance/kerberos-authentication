@@ -1,12 +1,13 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.kerberos.elastic.compatible;
 
 import org.apache.http.client.utils.URIBuilder;
+import pers.lyks.kerberos.elastic.PathLayering;
 
 /**
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
-public class PutDataAllocator extends ResetRequestURIAllocator {
+public class PutDataAllocator extends ResetURIAllocator {
 
     private PathLayering path;
 
@@ -17,6 +18,7 @@ public class PutDataAllocator extends ResetRequestURIAllocator {
 
     @Override
     protected void customize(URIBuilder builder) {
+        super.customize(builder);
         path.update(1, "_doc");
         builder.setPath(path.toString());
     }

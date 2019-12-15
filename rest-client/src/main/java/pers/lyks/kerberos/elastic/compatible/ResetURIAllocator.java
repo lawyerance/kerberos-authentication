@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.kerberos.elastic.compatible;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestWrapper;
@@ -7,6 +7,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pers.lyks.kerberos.elastic.CompatibleAllocator;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,36 +18,47 @@ import java.net.URISyntaxException;
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
-abstract class ResetRequestURIAllocator implements CompatibleAllocator {
+abstract class ResetURIAllocator implements CompatibleAllocator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private URIBuilder uriBuilder;
+    private URIBuilder builder;
 
-    protected ResetRequestURIAllocator(URIBuilder builder) {
-        this.uriBuilder = builder;
+    protected ResetURIAllocator(URIBuilder builder) {
+        this.builder = builder;
     }
 
     @Override
     public void compatible(HttpRequest request, HttpContext context) {
-
-        URI renew;
-        try {
-            customize(uriBuilder);
-            renew = this.uriBuilder.build();
-        } catch (URISyntaxException e) {
-            //Ignore
+        if (rewrite(request)) {
+            //
+            URI renew;
+            try {
+                customize(builder);
+                renew = this.builder.build();
+            } catch (URISyntaxException e) {
+                //Ignore
+                return;
+            }
+            if (logger.isDebugEnabled()) {
+                logger.debug("Before handle request with request line: {}", request.getRequestLine());
+                rewrite(renew, request, context);
+                logger.debug("After rewrite request uri with request line: {}", request.getRequestLine());
+            } else {
+                rewrite(renew, request, context);
+            }
             return;
         }
         if (logger.isDebugEnabled()) {
-            logger.debug("Before handle request with request line: {}", request.getRequestLine());
-            rewrite(renew, request, context);
-            logger.debug("After rewrite request uri with request line: {}", request.getRequestLine());
-        } else {
-            rewrite(renew, request, context);
+            logger.debug("The request uri needs not to be write with request line: {}", request.getRequestLine());
         }
     }
 
+    protected boolean rewrite(HttpRequest httpRequest) {
+        return true;
+    }
+
     protected void customize(URIBuilder builder) {
+
     }
 
     private void rewrite(URI renew, HttpRequest request, HttpContext context) {
