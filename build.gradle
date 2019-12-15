@@ -55,6 +55,10 @@ subprojects {
                     fileMode(0755)
                 }
             }
+
+            into("config") {
+                from("${buildDir}/resources/main")
+            }
         }
     }
 
