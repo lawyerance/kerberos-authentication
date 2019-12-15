@@ -82,10 +82,12 @@ public class KerberosRestClientProperties implements InitializingBean {
         return kerberos;
     }
 
+    @Deprecated
     public boolean isCompatible() {
         return compatible;
     }
 
+    @Deprecated
     public void setCompatible(boolean compatible) {
         this.compatible = compatible;
     }

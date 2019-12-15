@@ -1,5 +1,8 @@
 package pers.lyks.kerberos.autoconfigure.elasticsearch;
 
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.main.MainResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -9,10 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientBuilderCustomizer;
+import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
+import pers.lyks.kerberos.elastic.MainInfoVersion;
 
+import java.io.IOException;
 import java.security.PrivilegedActionException;
 
 /**
@@ -29,16 +35,19 @@ public class KerberosRestClientAutoConfiguration {
     @ConditionalOnProperty(name = "spring.elasticsearch.rest.kerberos.enabled", matchIfMissing = true)
     public static class KerberosAuthenticateRestClientBuilderCustomizer implements RestClientBuilderCustomizer {
         private final KerberosRestClientProperties.KerberosProperties kerberos;
+        private final RestClientProperties restClientProperties;
 
-        public KerberosAuthenticateRestClientBuilderCustomizer(KerberosRestClientProperties kerberosRestClientProperties) {
+        public KerberosAuthenticateRestClientBuilderCustomizer(KerberosRestClientProperties kerberosRestClientProperties, RestClientProperties restClientProperties) {
             this.kerberos = kerberosRestClientProperties.getKerberos();
+            this.restClientProperties = restClientProperties;
         }
 
         @Override
         public void customize(RestClientBuilder builder) {
             logger.info("Using custom customizer to authenticate rest client of kerberos.");
+            HttpHost[] hosts = restClientProperties.getUris().stream().map(HttpHost::create).toArray(HttpHost[]::new);
             SecureString secureString = StringUtils.isEmpty(kerberos.getPassword()) ? null : new SecureString(kerberos.getPassword().toCharArray());
-            KerberosAuthenticHttpClientConfigCallbackHandler configCallbackHandler = new KerberosAuthenticHttpClientConfigCallbackHandler(false, kerberos.getUsername(), secureString, kerberos.getLoginModule());
+            KerberosAuthenticHttpClientConfigCallbackHandler configCallbackHandler = new KerberosAuthenticHttpClientConfigCallbackHandler(hosts[0], kerberos.getUsername(), secureString, kerberos.getLoginModule());
             try {
                 configCallbackHandler.login();
             } catch (PrivilegedActionException e) {
@@ -52,14 +61,21 @@ public class KerberosRestClientAutoConfiguration {
     @ConditionalOnClass(value = {RestClientBuilder.class, RestHighLevelClient.class})
     @EnableConfigurationProperties({KerberosRestClientProperties.class})
     public static class CompatibleRestClientBuilderCustomizer implements RestClientBuilderCustomizer {
-        private final boolean compatible;
 
-        public CompatibleRestClientBuilderCustomizer(KerberosRestClientProperties kerberosRestClientProperties) {
-            this.compatible = kerberosRestClientProperties.isCompatible();
+        public CompatibleRestClientBuilderCustomizer() {
         }
 
         @Override
         public void customize(RestClientBuilder builder) {
+            boolean compatible;
+            RestHighLevelClient restHighLevelClient = new RestHighLevelClient(builder);
+            try {
+                MainResponse info = restHighLevelClient.info(RequestOptions.DEFAULT);
+                compatible = MainInfoVersion.compatible(info);
+            } catch (IOException e) {
+                logger.error("Obtain elasticsearch sever version error", e);
+                compatible = true;
+            }
             if (compatible) {
                 builder.setHttpClientConfigCallback(httpClientBuilder -> {
                     httpClientBuilder.addInterceptorFirst(new CompatibleRestClient6to7Interceptor());

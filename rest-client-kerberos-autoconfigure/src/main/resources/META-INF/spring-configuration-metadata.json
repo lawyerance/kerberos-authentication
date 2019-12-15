@@ -17,7 +17,8 @@
       "name": "spring.elasticsearch.rest.compatible",
       "type": "java.lang.Boolean",
       "sourceType": "pers.lyks.kerberos.autoconfigure.elasticsearch.KerberosRestClientProperties",
-      "description": "Whether to use elasticsearch rest client compatible."
+      "description": "Whether to use elasticsearch rest client compatible.",
+      "deprecation": {}
     },
     {
       "name": "spring.elasticsearch.rest.kerberos.enabled",

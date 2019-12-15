@@ -1,11 +1,15 @@
 package pers.lyks.kerberos.autoconfigure.elasticsearch;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthSchemeProvider;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.KerberosCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -21,6 +25,7 @@ import org.ietf.jgss.GSSCredential;
 import org.ietf.jgss.GSSException;
 import org.ietf.jgss.GSSManager;
 import org.ietf.jgss.Oid;
+import pers.lyks.kerberos.elastic.MainInfoVersion;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
@@ -33,6 +38,8 @@ import java.io.IOException;
 import java.security.*;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author lawyerance
@@ -41,11 +48,11 @@ import java.util.HashSet;
 class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuilder.HttpClientConfigCallback {
     private static final Oid SPNEGO_OIS = getSpnegoOid();
 
-    public KerberosAuthenticHttpClientConfigCallbackHandler(boolean compatible, String userPrincipalName, SecureString password, String loginModule) {
+    public KerberosAuthenticHttpClientConfigCallbackHandler(HttpHost host, String userPrincipalName, SecureString password, String loginModule) {
         this.userPrincipalName = userPrincipalName;
         this.password = password;
         this.loginModule = loginModule;
-        this.compatible = compatible;
+        this.host = host;
     }
 
     private static Oid getSpnegoOid() {
@@ -61,7 +68,7 @@ class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuil
     private final String userPrincipalName;
     private final SecureString password;
     private final String loginModule;
-    private final boolean compatible;
+    private HttpHost host;
 
     @Override
     public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
@@ -88,6 +95,15 @@ class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuil
             httpClientBuilder.setSSLStrategy(new SSLIOSessionStrategy(sslContextBuilder.build(), new NoopHostnameVerifier()));
         } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
             throw new RuntimeException(e);
+        }
+        boolean compatible;
+        try {
+            Future<HttpResponse> execute = httpClientBuilder.build().execute(host, new HttpGet("/"), null);
+            HttpEntity entity = execute.get().getEntity();
+            compatible = MainInfoVersion.compatible(entity.getContent());
+        } catch (InterruptedException | ExecutionException | IOException e) {
+            // Ignore
+            compatible = true;
         }
         if (compatible) {
             httpClientBuilder.addInterceptorFirst(new CompatibleRestClient6to7Interceptor());
