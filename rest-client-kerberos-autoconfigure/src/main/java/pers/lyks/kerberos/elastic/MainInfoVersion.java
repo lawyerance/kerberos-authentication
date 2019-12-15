@@ -21,7 +21,7 @@ public final class MainInfoVersion {
 
     public static boolean compatible(MainResponse main) throws IOException {
         Version serverVersion = main.getVersion();
-        logger.info("Elasticsearch use client version {} connect sever version {}. ", serverVersion, Version.CURRENT);
+        logger.info("Elasticsearch use client version {} connect sever version {}. ", Version.CURRENT, serverVersion);
         return serverVersion.major > Version.CURRENT.major;
     }
 
