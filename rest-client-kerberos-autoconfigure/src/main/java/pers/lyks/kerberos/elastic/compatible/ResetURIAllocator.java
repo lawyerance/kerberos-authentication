@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
  * @version 1.0 2019-11-28
  */
 abstract class ResetURIAllocator implements CompatibleAllocator {
+    protected static final String DEFAULT_TYPE_NAME = "_doc";
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private URIBuilder builder;

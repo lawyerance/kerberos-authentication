@@ -38,7 +38,7 @@ import java.util.HashSet;
  * @author lawyerance
  * @version 1.0 2019-11-23
  */
-public class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuilder.HttpClientConfigCallback {
+class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuilder.HttpClientConfigCallback {
     private static final Oid SPNEGO_OIS = getSpnegoOid();
 
     public KerberosAuthenticHttpClientConfigCallbackHandler(boolean compatible, String userPrincipalName, SecureString password, String loginModule) {
@@ -73,8 +73,8 @@ public class KerberosAuthenticHttpClientConfigCallbackHandler implements RestCli
             credential = Subject.doAs(loginContext.getSubject(), (PrivilegedExceptionAction<GSSCredential>) () -> gssManager.createCredential(null, GSSCredential.DEFAULT_LIFETIME, SPNEGO_OIS, GSSCredential.INITIATE_ONLY));
             KerberosCredentialsProvider credentialsProvider = new KerberosCredentialsProvider();
             credentialsProvider.setCredentials(
-                    new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM, AuthSchemes.SPNEGO),
-                    new KerberosCredentials(credential)
+                new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM, AuthSchemes.SPNEGO),
+                new KerberosCredentials(credential)
             );
             httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
         } catch (PrivilegedActionException e) {

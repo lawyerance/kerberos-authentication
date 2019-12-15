@@ -34,6 +34,6 @@ public class PathLayering {
 
     @Override
     public String toString() {
-        return PATH_SEPARATOR + item.stream().collect(Collectors.joining(PATH_SEPARATOR));
+        return PATH_SEPARATOR + String.join(PATH_SEPARATOR, item);
     }
 }

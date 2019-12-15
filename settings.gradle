@@ -1,8 +1,8 @@
 rootProject.name = 'kerberos-authentication'
-include 'rest-client'
+include 'rest-client-kerberos-autoconfigure'
 include 'rest-client-sample'
 
-include 'jest-client'
+include 'jest-client-kerberos-autoconfigure'
 include 'jest-client-sample'
 
 include 'transport-client'

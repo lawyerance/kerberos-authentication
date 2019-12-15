@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.protocol.HttpContext;
 import pers.lyks.kerberos.elastic.*;
-import pers.lyks.kerberos.elastic.compatible.CreateIndexIncludeTypeAllocator;
+import pers.lyks.kerberos.elastic.compatible.CreateIndexAllocator;
 import pers.lyks.kerberos.elastic.compatible.PutDataAllocator;
 import pers.lyks.kerberos.elastic.compatible.SearchAllocator;
 
@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
+ * <p>Compatible interceptor that using elasticsearch rest client 6 connect elasticsearch server 7. </p>
+ *
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
@@ -50,7 +52,7 @@ public class CompatibleRestClient6to7Interceptor implements HttpRequestIntercept
             PathLayering p = new PathLayering(path);
             int size = p.getSize();
             if (size == 1) {
-                return new CreateIndexIncludeTypeAllocator(builder);
+                return new CreateIndexAllocator(builder);
             } else {
                 return new PutDataAllocator(p, builder);
             }

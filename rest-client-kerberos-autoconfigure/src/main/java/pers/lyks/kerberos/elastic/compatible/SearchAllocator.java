@@ -6,6 +6,9 @@ import pers.lyks.kerberos.elastic.PathLayering;
 import java.util.Objects;
 
 /**
+ * <p>Search results, if search uri contains type name replacing custom type to default type name {@link ResetURIAllocator#DEFAULT_TYPE_NAME}. </p>
+ * <p>Transforming rest total hits compatible: add a parameter 'rest_total_hits_as_int=true' to url query string.</p>
+ *
  * @author lawyerance
  * @version 1.0 2019-11-28
  */

@@ -4,6 +4,8 @@ import org.apache.http.client.utils.URIBuilder;
 import pers.lyks.kerberos.elastic.PathLayering;
 
 /**
+ * <p>Add a single record, replace custom type to default type name {@link ResetURIAllocator#DEFAULT_TYPE_NAME}. </p>
+ *
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
@@ -19,7 +21,7 @@ public class PutDataAllocator extends ResetURIAllocator {
     @Override
     protected void customize(URIBuilder builder) {
         super.customize(builder);
-        path.update(1, "_doc");
+        path.update(1, DEFAULT_TYPE_NAME);
         builder.setPath(path.toString());
     }
 }

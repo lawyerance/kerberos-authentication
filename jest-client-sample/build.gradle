@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
 
-    compile project(":jest-client")
+    compile project(":jest-client-kerberos-autoconfigure")
 
 
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.8'
