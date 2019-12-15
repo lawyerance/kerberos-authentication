@@ -19,3 +19,13 @@ dependencies {
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: "$elasticsearchVersion"
     compile group: 'io.searchbox', name: 'jest', version: '6.3.1'
 }
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": "1.0",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version
+        )
+    }
+}

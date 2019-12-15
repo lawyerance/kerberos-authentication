@@ -30,4 +30,32 @@ subprojects {
 
     }
 
+    if ("${project.name}".endsWith("sample")) {
+        task release(type: Zip) {
+            dependsOn("build")
+
+            destinationDirectory = file("${buildDir}/release")
+
+            from("${buildDir}/libs") {
+                exclude("*.jar")
+            }
+            into("libs") {
+                from("${buildDir}/libs") {
+                    include("*.jar")
+                }
+
+                from configurations.compileClasspath
+            }
+
+            into("bin") {
+                from("${projectDir}/scripts") {
+                    fileMode(0755)
+                }
+                from("${rootDir}/scripts") {
+                    fileMode(0755)
+                }
+            }
+        }
+    }
+
 }

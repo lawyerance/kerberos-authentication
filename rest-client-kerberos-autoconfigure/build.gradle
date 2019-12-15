@@ -15,3 +15,13 @@ ext {
 dependencies {
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: "$elasticsearchVersion"
 }
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": "1.0",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version
+        )
+    }
+}
