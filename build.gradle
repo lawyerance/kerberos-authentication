@@ -1,13 +1,14 @@
 ext {
     elasticsearchVersion = "7.2.0"
+    projectVersion = project.hasProperty('release') ? "${baseVersion}-RELEASE" : "${baseVersion}-SNAPSHOT"
 }
 
 subprojects {
 
     apply plugin: 'java'
 
-    group 'pers.lyks'
-    version '1.0-SNAPSHOT'
+    group 'pers.lyks.kerberos'
+    version "${projectVersion}"
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -20,14 +21,23 @@ subprojects {
 
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
-        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.6.RELEASE'
-        compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
-        compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
+
+        compile("org.slf4j:slf4j-api:1.7.25")
+
+        compileOnly group: 'org.springframework.boot', name: 'spring-boot', version: '2.1.6.RELEASE'
 
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.6.RELEASE"
 
-        compile("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
+        compileOnly("org.springframework.boot:spring-boot-autoconfigure:2.1.6.RELEASE")
 
+        compileOnly("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
+
+
+        if ("${project.name}".endsWith("sample")) {
+            compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.6.RELEASE'
+            compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+            compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
+        }
     }
 
     if ("${project.name}".endsWith("sample")) {

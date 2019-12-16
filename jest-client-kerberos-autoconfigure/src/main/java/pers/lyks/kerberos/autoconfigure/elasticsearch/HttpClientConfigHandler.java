@@ -6,7 +6,6 @@ import org.apache.http.auth.KerberosCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.AuthSchemes;
 import org.elasticsearch.ExceptionsHelper;
-import org.elasticsearch.common.settings.SecureString;
 import org.ietf.jgss.GSSCredential;
 import org.ietf.jgss.GSSException;
 import org.ietf.jgss.GSSManager;
@@ -27,8 +26,8 @@ import java.util.Collections;
 import java.util.HashSet;
 
 /**
+ * @author lawyerance
  * @version 1.0 2019-12-07
- * @auther lawyerance
  */
 public final class HttpClientConfigHandler {
     private static final Oid SPNEGO_OIS = getSpnegoOid();

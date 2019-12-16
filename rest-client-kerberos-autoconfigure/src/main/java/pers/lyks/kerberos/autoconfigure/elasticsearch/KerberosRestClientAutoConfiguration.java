@@ -25,6 +25,7 @@ import java.security.PrivilegedActionException;
  * @author lawyerance
  * @version 1.0 2019-11-22
  */
+@Configuration
 @ConditionalOnClass(value = {RestClient.class})
 public class KerberosRestClientAutoConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(KerberosRestClientAutoConfiguration.class);
@@ -60,6 +61,7 @@ public class KerberosRestClientAutoConfiguration {
     @Configuration
     @ConditionalOnClass(value = {RestClientBuilder.class, RestHighLevelClient.class})
     @EnableConfigurationProperties({KerberosRestClientProperties.class})
+    @ConditionalOnProperty(name = "spring.elasticsearch.rest.kerberos.enabled", havingValue = "false")
     public static class CompatibleRestClientBuilderCustomizer implements RestClientBuilderCustomizer {
 
         public CompatibleRestClientBuilderCustomizer() {

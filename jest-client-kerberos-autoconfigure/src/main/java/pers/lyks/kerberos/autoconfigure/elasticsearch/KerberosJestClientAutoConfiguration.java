@@ -16,6 +16,7 @@ import java.security.PrivilegedActionException;
  * @author lawyerance
  * @version 1.0 2019-12-01
  */
+@Configuration
 @ConditionalOnClass(value = {JestClient.class})
 public class KerberosJestClientAutoConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(KerberosJestClientAutoConfiguration.class);

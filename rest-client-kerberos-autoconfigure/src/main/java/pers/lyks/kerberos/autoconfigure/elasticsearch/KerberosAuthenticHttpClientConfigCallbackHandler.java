@@ -14,6 +14,7 @@ import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.auth.SPNegoSchemeFactory;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.nio.conn.ssl.SSLIOSessionStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
@@ -98,7 +99,9 @@ class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuil
         }
         boolean compatible;
         try {
-            Future<HttpResponse> execute = httpClientBuilder.build().execute(host, new HttpGet("/"), null);
+            CloseableHttpAsyncClient httpAsyncClient = httpClientBuilder.build();
+            httpAsyncClient.start();
+            Future<HttpResponse> execute = httpAsyncClient.execute(host, new HttpGet("/"), null);
             HttpEntity entity = execute.get().getEntity();
             compatible = MainInfoVersion.compatible(entity.getContent());
         } catch (InterruptedException | ExecutionException | IOException e) {

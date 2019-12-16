@@ -18,7 +18,7 @@ public class KerberosRestClientProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        kerberos.resetPassword(restClientProperties.getUsername());
+        kerberos.resetUsername(restClientProperties.getUsername());
         kerberos.resetPassword(restClientProperties.getPassword());
     }
 
