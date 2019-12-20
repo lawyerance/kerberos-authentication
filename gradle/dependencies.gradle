@@ -1,0 +1,83 @@
+ext.libraries = [
+        slf4j              : [
+                dependencies.create("org.slf4j:slf4j-api:$slf4jVersion") {
+                    force = true
+                }
+        ],
+
+        junit              : [
+                dependencies.create("junit:junit:$junitVersion") {
+                    force = true
+                }
+        ],
+
+        restclient         : [
+                dependencies.create("org.elasticsearch.client:elasticsearch-rest-high-level-client:$elasticsearchVersion") {
+                    force = true
+                }
+        ],
+
+        transportclient    : [
+                dependencies.create("org.elasticsearch.client:transport:$elasticsearchVersion") {
+                    force = true
+                }
+        ],
+
+        jestclient         : [
+                dependencies.create("org.elasticsearch:elasticsearch:$elasticsearchVersion") {
+                    force = true
+                },
+
+                dependencies.create("io.searchbox:jest:$searchboxVersion") {
+                    force = true
+                }
+        ],
+
+        groovy             : [
+                dependencies.create("org.codehaus.groovy:groovy-all:$groovyVersion") {
+                    force = true
+                }
+        ],
+
+        springboot         : [
+                dependencies.create("org.springframework.boot:spring-boot:$springBootVersion") {
+                    force = true
+                }
+        ],
+
+        springautoconfigure: [
+                dependencies.create("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion") {
+                    force = true
+                }
+        ],
+
+
+        jackson            : [
+                dependencies.create("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {
+                    exclude(group: "com.fasterxml.jackson.core", module: "jackson-core")
+                    force = true
+                },
+
+                dependencies.create("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {
+                    force = true
+                }
+        ],
+
+        springbootweb      : [
+                dependencies.create("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
+                    force = true
+                }
+        ],
+
+        springboottest     : [
+                dependencies.create("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+                    force = true
+                }
+        ],
+
+        springbootprocessor: [
+                dependencies.create("org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion") {
+                    force = true
+                }
+        ]
+]

@@ -1,8 +1,24 @@
 ext {
-    elasticsearchVersion = "7.2.0"
     projectVersion = project.hasProperty('release') ? "${baseVersion}-RELEASE" : "${baseVersion}-SNAPSHOT"
 }
 
+apply plugin: 'idea'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+
+allprojects {
+    apply from: rootProject.file("gradle/dependencies.gradle")
+
+    group "$baseGroup"
+    version "$projectVersion"
+
+}
 subprojects {
 
     apply plugin: 'java'
@@ -20,23 +36,25 @@ subprojects {
     }
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testImplementation libraries.junit
 
-        compile("org.slf4j:slf4j-api:1.7.25")
+        implementation libraries.slf4j
 
-        compileOnly group: 'org.springframework.boot', name: 'spring-boot', version: '2.1.6.RELEASE'
+        compileOnly libraries.springboot
 
-        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.6.RELEASE"
+        compileOnly libraries.springautoconfigure
 
-        compileOnly("org.springframework.boot:spring-boot-autoconfigure:2.1.6.RELEASE")
-
-        compileOnly("org.springframework.boot:spring-boot-autoconfigure-processor:2.1.6.RELEASE")
+        compileOnly libraries.springbootprocessor
 
 
         if ("${project.name}".endsWith("sample")) {
-            compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.6.RELEASE'
-            compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
-            compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
+
+            implementation libraries.springbootweb
+
+            annotationProcessor libraries.springautoconfigure
+
+            testImplementation libraries.springboottest
+
         }
     }
 

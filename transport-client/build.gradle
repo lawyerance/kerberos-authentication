@@ -2,17 +2,13 @@ plugins {
     id 'java'
 }
 
-version 'unspecified'
-
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
-ext {
-    elasticsearchVersion = "6.7.2"
-}
+
 
 dependencies {
-    compile group: 'org.elasticsearch.client', name: 'transport', version: "$elasticsearchVersion"
+    implementation libraries.transportclient
 }

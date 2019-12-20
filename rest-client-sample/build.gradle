@@ -16,9 +16,11 @@ repositories {
 
 dependencies {
 
-    compile project(":rest-client-kerberos-autoconfigure")
+    implementation project(":rest-client-kerberos-autoconfigure")
 
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.8'
+    implementation libraries.restclient
+
+    implementation libraries.groovy
 
 }
 

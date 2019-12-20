@@ -8,14 +8,9 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    elasticsearchVersion = "6.7.2"
-}
-
 
 dependencies {
-    compile group: 'org.elasticsearch', name: 'elasticsearch', version: "$elasticsearchVersion"
-    compile group: 'io.searchbox', name: 'jest', version: '6.3.1'
+    implementation libraries.jestclient
 }
 
 jar {

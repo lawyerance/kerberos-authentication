@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group 'pers.lyks'
-version '1.0-SNAPSHOT'
-
 apply plugin: 'application'
 apply plugin: "groovy"
 
@@ -16,7 +13,9 @@ repositories {
 
 dependencies {
 
-    compile project(":jest-client-kerberos-autoconfigure")
+    implementation project(":jest-client-kerberos-autoconfigure")
+
+    implementation libraries.jestclient
 
 }
 
