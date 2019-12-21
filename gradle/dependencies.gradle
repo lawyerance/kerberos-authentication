@@ -11,6 +11,12 @@ ext.libraries = [
                 }
         ],
 
+        elasticsearch      : [
+                dependencies.create("org.elasticsearch:elasticsearch:$elasticsearchVersion") {
+                    force = true
+                }
+        ],
+
         restclient         : [
                 dependencies.create("org.elasticsearch.client:elasticsearch-rest-high-level-client:$elasticsearchVersion") {
                     force = true
@@ -82,13 +88,13 @@ ext.libraries = [
         ],
 
 
-        httpclient      : [
+        httpclient         : [
                 dependencies.create("org.apache.httpcomponents:httpclient:$httpclientVersion") {
                     force = true
                 }
         ],
 
-        httpasyncclient     : [
+        httpasyncclient    : [
                 dependencies.create("org.apache.httpcomponents:httpasyncclient:$httpasyncclientVersion") {
                     force = true
                 }

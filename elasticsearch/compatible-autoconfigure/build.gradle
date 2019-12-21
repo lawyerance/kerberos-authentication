@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    implementation project(":elasticsearch:compatible-api")
+
+    implementation libraries.restclient
+
+    implementation libraries.jestclient
+
+}

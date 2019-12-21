@@ -18,76 +18,38 @@ allprojects {
     group "$baseGroup"
     version "$projectVersion"
 
-}
-subprojects {
-
-    apply plugin: 'java'
-
-    group 'pers.lyks.kerberos'
-    version "${projectVersion}"
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
 
     repositories {
         mavenLocal()
         maven { url 'https://maven.aliyun.com/repository/public' }
         mavenCentral()
     }
-
-    dependencies {
-        testImplementation libraries.junit
-
-        implementation libraries.slf4j
-
-        implementation libraries.springboot
-
-        compileOnly libraries.springautoconfigure
-
-        compileOnly libraries.springbootprocessor
-
-
-        if ("${project.name}".endsWith("sample")) {
-
-            implementation libraries.springbootweb
-
-            annotationProcessor libraries.springautoconfigure
-
-            testImplementation libraries.springboottest
-
-        }
-    }
-
-    if ("${project.name}".endsWith("sample")) {
-        task release(type: Zip) {
-            dependsOn("build")
-
-            destinationDirectory = file("${buildDir}/release")
-
-            from("${buildDir}/libs") {
-                exclude("*.jar")
-            }
-            into("libs") {
-                from("${buildDir}/libs") {
-                    include("*.jar")
-                }
-
-                from configurations.compileClasspath
-            }
-
-            into("bin") {
-                from("${projectDir}/scripts") {
-                    fileMode(0755)
-                }
-                from("${rootDir}/scripts") {
-                    fileMode(0755)
-                }
-            }
-
-            into("config") {
-                from("${buildDir}/resources/main")
-            }
-        }
-    }
-
 }
+
+//subprojects {
+//
+//
+//
+//    dependencies {
+//        testImplementation libraries.junit
+//
+//        implementation libraries.slf4j
+//
+
+//
+//
+//        if ("${project.name}".endsWith("sample")) {
+//
+//            implementation libraries.springbootweb
+//
+//            annotationProcessor libraries.springautoconfigure
+//
+//            testImplementation libraries.springboottest
+//
+//        }
+//    }
+//
+//    if ("${project.name}".endsWith("sample")) {
+//
+//
+//}

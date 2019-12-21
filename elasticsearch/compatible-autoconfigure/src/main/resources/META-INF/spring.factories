@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  pers.lyks.compatible.autoconfigure.jest.JestCompatibleAutoConfiguration,\
+  pers.lyks.compatible.autoconfigure.rest.RestCompatibleAutoConfiguration

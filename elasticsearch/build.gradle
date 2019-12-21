@@ -1,0 +1,65 @@
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenLocal()
+    }
+
+    dependencies {
+        implementation libraries.slf4j
+
+        implementation libraries.elasticsearch
+
+        if ("${project.name}".endsWith("autoconfigure")) {
+
+            implementation libraries.springboot
+
+            compileOnly libraries.springautoconfigure
+
+            compileOnly libraries.springbootprocessor
+        }
+
+        if ("${project.name}".endsWith("sample")) {
+            implementation libraries.springbootweb
+
+            annotationProcessor libraries.springautoconfigure
+
+            testImplementation libraries.springboottest
+
+            task release(type: Zip) {
+                dependsOn("build")
+
+                destinationDirectory = file("${buildDir}/release")
+
+                from("${buildDir}/libs") {
+                    exclude("*.jar")
+                }
+                into("libs") {
+                    from("${buildDir}/libs") {
+                        include("*.jar")
+                    }
+
+                    from configurations.compileClasspath
+                }
+
+                into("bin") {
+                    from("${projectDir}/scripts") {
+                        fileMode(0755)
+                    }
+                    from("${rootDir}/scripts") {
+                        fileMode(0755)
+                    }
+                }
+
+                into("config") {
+                    from("${buildDir}/resources/main")
+                }
+            }
+
+        }
+    }
+
+}

@@ -1,10 +1,11 @@
 rootProject.name = 'kerberos-authentication'
-include 'rest-client-kerberos-autoconfigure'
-include 'rest-client-sample'
 
-include 'jest-client-kerberos-autoconfigure'
-include 'jest-client-sample'
+include 'kerberos-api'
 
-include 'transport-client'
-include 'elastic-compatible-api'
+include 'elasticsearch'
+include 'elasticsearch:compatible-api'
+include 'elasticsearch:compatible-autoconfigure'
+include 'elasticsearch:kerberos-autoconfigure'
+include 'elasticsearch:rest-client-sample'
+include 'elasticsearch:jest-client-sample'
 
