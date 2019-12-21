@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic.compatible;
+package pers.lyks.elastic.compatible;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestWrapper;
@@ -7,7 +7,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pers.lyks.kerberos.elastic.CompatibleAllocator;
+import pers.lyks.elastic.CompatibleAllocator;
 
 import java.net.URI;
 import java.net.URISyntaxException;

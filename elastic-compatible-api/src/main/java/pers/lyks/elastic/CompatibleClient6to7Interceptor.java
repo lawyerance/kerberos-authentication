@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.autoconfigure.elasticsearch;
+package pers.lyks.elastic;
 
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -9,21 +9,20 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.protocol.HttpContext;
-import pers.lyks.kerberos.elastic.*;
-import pers.lyks.kerberos.elastic.compatible.CreateIndexAllocator;
-import pers.lyks.kerberos.elastic.compatible.PutDataAllocator;
-import pers.lyks.kerberos.elastic.compatible.SearchAllocator;
+import pers.lyks.elastic.compatible.CreateIndexAllocator;
+import pers.lyks.elastic.compatible.PutDataAllocator;
+import pers.lyks.elastic.compatible.SearchAllocator;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * <p>Compatible interceptor that using elasticsearch rest client 6 connect elasticsearch server 7. </p>
+ * <p>Compatible interceptor that using elasticsearch client 6 connect elasticsearch server 7,both jest client and rest client. </p>
  *
  * @author lawyerance
  * @version 1.0 2019-11-28
  */
-public class CompatibleRestClient6to7Interceptor implements HttpRequestInterceptor {
+public class CompatibleClient6to7Interceptor implements HttpRequestInterceptor {
 
     @Override
     public void process(HttpRequest httpRequest, HttpContext httpContext) throws HttpException, IOException {

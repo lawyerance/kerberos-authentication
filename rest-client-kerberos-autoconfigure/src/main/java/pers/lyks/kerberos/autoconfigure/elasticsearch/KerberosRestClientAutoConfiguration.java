@@ -16,7 +16,8 @@ import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientPrope
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
-import pers.lyks.kerberos.elastic.MainInfoVersion;
+import pers.lyks.elastic.CompatibleClient6to7Interceptor;
+import pers.lyks.elastic.util.MainInfoVersion;
 
 import java.io.IOException;
 import java.security.PrivilegedActionException;
@@ -80,7 +81,7 @@ public class KerberosRestClientAutoConfiguration {
             }
             if (compatible) {
                 builder.setHttpClientConfigCallback(httpClientBuilder -> {
-                    httpClientBuilder.addInterceptorFirst(new CompatibleRestClient6to7Interceptor());
+                    httpClientBuilder.addInterceptorFirst(new CompatibleClient6to7Interceptor());
                     return httpClientBuilder;
                 });
             }

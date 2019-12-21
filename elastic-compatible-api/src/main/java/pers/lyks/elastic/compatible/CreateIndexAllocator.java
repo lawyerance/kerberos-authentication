@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic.compatible;
+package pers.lyks.elastic.compatible;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

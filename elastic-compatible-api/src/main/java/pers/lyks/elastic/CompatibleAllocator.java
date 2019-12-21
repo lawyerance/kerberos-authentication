@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.elastic;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.protocol.HttpContext;

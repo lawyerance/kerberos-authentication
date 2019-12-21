@@ -1,7 +1,7 @@
-package pers.lyks.kerberos.elastic.compatible;
+package pers.lyks.elastic.compatible;
 
 import org.apache.http.client.utils.URIBuilder;
-import pers.lyks.kerberos.elastic.PathLayering;
+import pers.lyks.elastic.PathLayering;
 
 /**
  * <p>Add a single record, replace custom type to default type name {@link ResetURIAllocator#DEFAULT_TYPE_NAME}. </p>

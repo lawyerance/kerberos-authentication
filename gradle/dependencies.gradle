@@ -79,5 +79,18 @@ ext.libraries = [
                 dependencies.create("org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion") {
                     force = true
                 }
-        ]
+        ],
+
+
+        httpclient      : [
+                dependencies.create("org.apache.httpcomponents:httpclient:$httpclientVersion") {
+                    force = true
+                }
+        ],
+
+        httpasyncclient     : [
+                dependencies.create("org.apache.httpcomponents:httpasyncclient:$httpasyncclientVersion") {
+                    force = true
+                }
+        ],
 ]

@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.elastic;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -6,4 +6,5 @@ include 'jest-client-kerberos-autoconfigure'
 include 'jest-client-sample'
 
 include 'transport-client'
+include 'elastic-compatible-api'
 

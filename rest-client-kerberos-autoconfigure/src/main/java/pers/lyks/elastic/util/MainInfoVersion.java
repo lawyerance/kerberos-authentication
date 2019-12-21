@@ -1,4 +1,4 @@
-package pers.lyks.kerberos.elastic;
+package pers.lyks.elastic.util;
 
 import org.elasticsearch.Version;
 import org.elasticsearch.action.main.MainResponse;

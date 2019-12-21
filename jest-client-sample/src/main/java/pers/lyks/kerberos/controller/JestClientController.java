@@ -28,9 +28,6 @@ public class JestClientController {
     @Resource
     private JestClient jestClient;
 
-    @Resource
-    private ObjectMapper objectMapper;
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Map<String, Object> information() throws IOException {
         Map<String, Object> map = new HashMap<>();

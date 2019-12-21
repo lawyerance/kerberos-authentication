@@ -14,6 +14,7 @@ public class KerberosJestClientProperties implements InitializingBean {
     @Autowired
     private JestProperties jestProperties;
 
+    private boolean compatible;
     private final KerberosProperties kerberos = new KerberosProperties("JestClient");
 
     @Override
@@ -24,5 +25,13 @@ public class KerberosJestClientProperties implements InitializingBean {
 
     public KerberosProperties getKerberos() {
         return kerberos;
+    }
+
+    public boolean isCompatible() {
+        return compatible;
+    }
+
+    public void setCompatible(boolean compatible) {
+        this.compatible = compatible;
     }
 }

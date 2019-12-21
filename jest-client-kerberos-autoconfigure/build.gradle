@@ -10,6 +10,8 @@ repositories {
 
 
 dependencies {
+    implementation project(":elastic-compatible-api")
+
     implementation libraries.jestclient
 }
 

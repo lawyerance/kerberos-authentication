@@ -9,9 +9,11 @@ repositories {
 
 
 dependencies {
+
+    implementation project(":elastic-compatible-api")
+
     implementation libraries.restclient
 
-    compileOnly libraries.jackson
 }
 
 jar {

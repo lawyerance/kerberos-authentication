@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    implementation libraries.httpclient
+
+    implementation libraries.httpasyncclient
+
+    implementation libraries.jackson
+}

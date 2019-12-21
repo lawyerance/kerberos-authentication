@@ -26,7 +26,8 @@ import org.ietf.jgss.GSSCredential;
 import org.ietf.jgss.GSSException;
 import org.ietf.jgss.GSSManager;
 import org.ietf.jgss.Oid;
-import pers.lyks.kerberos.elastic.MainInfoVersion;
+import pers.lyks.elastic.CompatibleClient6to7Interceptor;
+import pers.lyks.elastic.util.MainInfoVersion;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
@@ -109,7 +110,7 @@ class KerberosAuthenticHttpClientConfigCallbackHandler implements RestClientBuil
             compatible = true;
         }
         if (compatible) {
-            httpClientBuilder.addInterceptorFirst(new CompatibleRestClient6to7Interceptor());
+            httpClientBuilder.addInterceptorFirst(new CompatibleClient6to7Interceptor());
         }
         return httpClientBuilder;
     }

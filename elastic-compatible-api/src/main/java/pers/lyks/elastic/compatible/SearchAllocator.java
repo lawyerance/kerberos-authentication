@@ -1,7 +1,7 @@
-package pers.lyks.kerberos.elastic.compatible;
+package pers.lyks.elastic.compatible;
 
 import org.apache.http.client.utils.URIBuilder;
-import pers.lyks.kerberos.elastic.PathLayering;
+import pers.lyks.elastic.PathLayering;
 
 import java.util.Objects;
 

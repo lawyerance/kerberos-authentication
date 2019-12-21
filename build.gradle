@@ -40,7 +40,7 @@ subprojects {
 
         implementation libraries.slf4j
 
-        compileOnly libraries.springboot
+        implementation libraries.springboot
 
         compileOnly libraries.springautoconfigure
 
