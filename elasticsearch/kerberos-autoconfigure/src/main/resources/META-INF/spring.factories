@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  pers.lyks.kerberos.autoconfigure.jest.KerberosJestClientAutoConfiguration,\
-  pers.lyks.kerberos.autoconfigure.rest.KerberosRestClientAutoConfiguration
+  pers.lyks.jest.sample.autoconfigure.jest.KerberosJestClientAutoConfiguration,\
+  pers.lyks.jest.sample.autoconfigure.rest.KerberosRestClientAutoConfiguration

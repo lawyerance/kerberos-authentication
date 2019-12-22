@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(":elasticsearch:compatible-api")
+    compile project(":elasticsearch:compatible-api")
 
     implementation libraries.restclient
 

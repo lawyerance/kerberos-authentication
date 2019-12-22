@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-sourceCompatibility = 1.8
+group "pers.lyks.elastic"
 
 repositories {
     mavenLocal()

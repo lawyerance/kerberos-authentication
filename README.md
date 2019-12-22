@@ -1,4 +1,4 @@
-# Kerber-Authentication
+# Kerberos-Authentication
 
 基于JAAS进行kerberos认证
 
@@ -14,6 +14,7 @@
 ### Elasticsearch Jest client
 
 - 无侵入式实现kerberos认证
+- elasticsearch6客户端连接elasticsearch7服务端的兼容实现
 
 ## 项目发布仓库
 
@@ -29,12 +30,10 @@
 
 ## Rest-Client
 
-使用方式可以参考[rest-client-sample](rest-client-sample)
+使用方式可以参考[rest-client-sample](elasticsearch/restclient-sample)
 
 下面对配置进行说明：
 ```properties
-# 是否开启kerberos认证，缺省为true，当为false仅开启兼容模式（具体是否采用示客户端和服务端版本而定）
-spring.elasticsearch.rest.kerberos.enabled=true
 # Kerberos验证的用户名，未配置时取${spring.elasticsearch.rest.username}
 spring.elasticsearch.rest.kerberos.username=username
 # Kerberos验证的用户密码，未配置时取${spring.elasticsearch.rest.password}
@@ -45,12 +44,10 @@ spring.elasticsearch.rest.kerberos.login-module=RestClient
 
 ## Jest-Client
 
-使用方式可以参考[jest-client-sample](jest-client-sample)
+使用方式可以参考[jest-client-sample](elasticsearch/jestclient-sample)
 
 下面对配置进行说明：
 ```properties
-# 是否开启kerberos认证，缺省为true
-spring.elasticsearch.jest.kerberos.enabled=true
 # Kerberos验证的用户名，未配置时取${spring.elasticsearch.jest.username}
 spring.elasticsearch.jest.kerberos.username=username
 # Kerberos验证的用户密码，未配置时取${spring.elasticsearch.jest.password}

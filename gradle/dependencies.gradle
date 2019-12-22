@@ -72,6 +72,10 @@ ext.libraries = [
         springbootweb      : [
                 dependencies.create("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
                     force = true
+                },
+
+                dependencies.create("org.yaml:snakeyaml:$snakeyamlVersion") {
+                    force = true
                 }
         ],
 

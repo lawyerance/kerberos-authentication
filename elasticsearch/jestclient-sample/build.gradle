@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+group 'pers.lyks.sample'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: "groovy"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+
+dependencies {
+
+//    implementation project(":elasticsearch:compatible-autoconfigure")
+    implementation("pers.lyks.kerberos:compatible-autoconfigure:1.1.0-RELEASE")
+
+//    implementation project(":elasticsearch:kerberos-autoconfigure")
+
+    implementation libraries.jestclient
+
+}
+
+application {
+    mainClassName = 'pers.lyks.jest.sample.JestClientApplication'
+
+    applicationDefaultJvmArgs = [
+            "-Dapp.logs.dir=${projectDir}/logs",
+            "-Dlogging.config=${projectDir.absolutePath}/src/main/resources/logback-console.xml"
+    ]
+
+}
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": "1.0",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version
+        )
+    }
+    exclude("*.yaml", "*.xml")
+}

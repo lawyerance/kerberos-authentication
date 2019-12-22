@@ -2,6 +2,7 @@ subprojects {
     apply plugin: 'java'
 
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     repositories {
         mavenLocal()
@@ -12,9 +13,12 @@ subprojects {
         implementation libraries.slf4j
 
         implementation libraries.elasticsearch
+    }
 
-        if ("${project.name}".endsWith("autoconfigure")) {
 
+    if ("${project.name}".endsWith("autoconfigure")) {
+
+        dependencies {
             implementation libraries.springboot
 
             compileOnly libraries.springautoconfigure
@@ -22,44 +26,50 @@ subprojects {
             compileOnly libraries.springbootprocessor
         }
 
-        if ("${project.name}".endsWith("sample")) {
+    }
+
+    if ("${project.name}".endsWith("sample")) {
+        dependencies {
             implementation libraries.springbootweb
 
             annotationProcessor libraries.springautoconfigure
 
             testImplementation libraries.springboottest
 
-            task release(type: Zip) {
-                dependsOn("build")
+            implementation libraries."${project.name.replaceAll("-sample", "")}"
+        }
 
-                destinationDirectory = file("${buildDir}/release")
 
+        task release(type: Zip) {
+            dependsOn("build")
+
+            destinationDirectory = file("${buildDir}/release")
+
+            from("${buildDir}/libs") {
+                exclude("*.jar")
+            }
+            into("libs") {
                 from("${buildDir}/libs") {
-                    exclude("*.jar")
-                }
-                into("libs") {
-                    from("${buildDir}/libs") {
-                        include("*.jar")
-                    }
-
-                    from configurations.compileClasspath
+                    include("*.jar")
                 }
 
-                into("bin") {
-                    from("${projectDir}/scripts") {
-                        fileMode(0755)
-                    }
-                    from("${rootDir}/scripts") {
-                        fileMode(0755)
-                    }
-                }
+                from configurations.compileClasspath
+            }
 
-                into("config") {
-                    from("${buildDir}/resources/main")
+            into("bin") {
+                from("${projectDir}/scripts") {
+                    fileMode(0755)
+                }
+                from("${rootDir}/scripts") {
+                    fileMode(0755)
                 }
             }
 
+            into("config") {
+                from("${buildDir}/resources/main")
+            }
         }
+
     }
 
 }

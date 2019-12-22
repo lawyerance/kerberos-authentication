@@ -12,9 +12,7 @@ dependencies {
 
     implementation project(":kerberos-api")
 
-    implementation project(":elasticsearch:compatible-api")
-
-    implementation project(":elasticsearch:compatible-autoconfigure")
+    compile project(":elasticsearch:compatible-api")
 
     implementation libraries.restclient
 

@@ -6,6 +6,6 @@ include 'elasticsearch'
 include 'elasticsearch:compatible-api'
 include 'elasticsearch:compatible-autoconfigure'
 include 'elasticsearch:kerberos-autoconfigure'
-include 'elasticsearch:rest-client-sample'
-include 'elasticsearch:jest-client-sample'
+include 'elasticsearch:restclient-sample'
+include 'elasticsearch:jestclient-sample'
 
